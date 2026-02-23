@@ -1,0 +1,35 @@
+<header class="navbar">
+  <div class="nav-container">
+    <div class="logo">
+      <a href="/">Mikaels web shop</a>
+    </div>
+
+    <nav>
+      <ul class="nav-links">
+        <li>
+<button class="cart-button" type="button" id="cartButton">
+  <img src="/images/cart.png" alt="Cart" class="cart-icon" width="24" height="24" />
+</button>
+        </li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/products">Products</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+{{> cartMenu }}
+
+<style>
+  .cart-button {
+    background: none; /* removes default button background */
+    border: none; /* removes default border */
+    cursor: pointer;
+  }
+  .cart-icon {
+    width: 24px;
+    height: 24px;
+    display: block; /* avoids inline gaps */
+    background: transparent; /* ensures image background is transparent */
+  }
+</style>

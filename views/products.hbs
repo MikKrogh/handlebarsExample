@@ -1,0 +1,104 @@
+
+<div class="products-container">
+  {{#each products}}
+    <div class="product-card">
+      <img src="{{image}}" alt="{{name}}">
+      <h2>{{name}}</h2>
+      <p class="price">Price: ${{price}}</p>
+      <p class="stock">In stock: {{amountInStock}}</p>
+
+      {{#if amountInStock}}
+        <button class="add-to-cart-btn" onclick="addToCart({{id}}, '{{name}}', {{price}})">Add to Cart</button>
+      {{else}}
+        <p class="out-of-stock">Out of stock</p>
+      {{/if}}
+    </div>
+  {{/each}}
+</div>
+
+<style>
+/* Container for all products */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Each product card */
+.product-card {
+  border: 1px solid #9b105c;
+  border-radius: 10px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.product-card img {
+  width: 150px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product-card h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.product-card .price {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.product-card .stock {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.add-to-cart-btn {
+  padding: 8px 12px;
+  background-color: #227937;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #1063c0;
+}
+
+.out-of-stock {
+  color: red;
+  font-weight: bold;
+}
+</style>
+
+<script>
+function addToCart(id, name, price) {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  const existingItemIndex = cart.findIndex(item => item.id === id);
+  if (existingItemIndex > -1) {
+    // Item already in cart, increment quantity
+    cart[existingItemIndex].quantity += 1;
+  } else {
+    // Add new item
+    cart.push({ id, name, price, quantity: 1 });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert(name + " added to cart! Total items in cart: " + cart.reduce((sum, item) => sum + item.quantity, 0));
+}
+</script>
